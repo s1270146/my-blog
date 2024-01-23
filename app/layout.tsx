@@ -19,7 +19,9 @@ export default function RootLayout({
       <body>
         <Header />
         <SubHeader />
-        {children}
+        <div className='z-10'>
+          {children}
+        </div>
         <Footer />
       </body>
     </html>
