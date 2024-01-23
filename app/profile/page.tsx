@@ -1,10 +1,10 @@
 import Image from "next/image";
 import profilePhoto from '@/public/profile/profile.jpeg'
 import notion from "@/utils/notion";
-import { jacquesFrancois } from "@/utils/font";
+import PageTitle from "@/components/page/PageTitle";
 
 export default async function Profile() {
-    const profilePage = "3743f32f-de38-477a-9100-ffdf954b55ef";
+    const profilePage = process.env.PROFILE_PAGE_ID as string;
     const pageRes = await notion.blocks.children.list({ block_id: profilePage });
     const profileParagraph: string[] = [];
     for (const block of pageRes.results) {
@@ -16,9 +16,7 @@ export default async function Profile() {
 
     return (
         <div>
-            <div className="pt-6 pb-2 flex justify-center">
-                <h1 className={jacquesFrancois.className + " inline-block text-4xl border-b-4 border-mid-gray"}>Profile</h1>
-            </div>
+            <PageTitle title="Profile"/>
             <div className="flex justify-center gap-4">
                 <Image
                     className="object-cover w-120 h-80"
