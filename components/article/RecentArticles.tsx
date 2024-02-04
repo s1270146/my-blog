@@ -1,6 +1,7 @@
 import { Article } from "@/models/article";
 import ArticleCard from "@/components/article/ArticleCard";
 import { getRecentArticle } from "@/utils/get-recent-article";
+import ConstructText from "@/components/common/ConstructText";
 
 type RecentArticlesProps = {
     category?: string
@@ -13,13 +14,20 @@ const RecentArticles = async (props: RecentArticlesProps) => {
         articles.push(Article.fromNotion(article));
     }
     return (
-        <div className="flex justify-center gap-4">
-            {articles.map(
-                (article, index) =>
-                    <div key={"article" + String(index)}>
-                        <ArticleCard article={article} />
-                    </div>
-            )}
+        <div className="flex justify-center mb-4">
+            <div className="w-3/4 md:flex gap-4">
+                {
+                    articles.length == 0
+                    ? <ConstructText/>
+                    :
+                    articles.map(
+                        (article, index) =>
+                            <div className="flex-1 min-w-[25%]" key={"article" + String(index)}>
+                                <ArticleCard article={article} />
+                            </div>
+                    )
+                }
+            </div>
         </div>
     );
 }

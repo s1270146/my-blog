@@ -3,16 +3,16 @@ import PageTitle from "@/components/page/PageTitle";
 
 const Home = () => {
   return (
-    <div className="overflow-y-auto">
+    <div className="overflow-y-hidden">
       <PageTitle title="最近の投稿"/>
       <RecentArticles/>
-      <PageTitle title="Blog"/>
+      <PageTitle title="BLOG"/>
       <RecentArticles category="blog"/>
-      <PageTitle title="Work"/>
+      <PageTitle title="WORK"/>
       <RecentArticles category="work"/>
-      <PageTitle title="Daily"/>
+      <PageTitle title="DAILY"/>
       <RecentArticles category="daily"/>
-      <PageTitle title="Research"/>
+      <PageTitle title="RESEARCH"/>
       <RecentArticles category="research"/>
       <div className="h-10"></div>
     </div>

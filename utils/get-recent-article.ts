@@ -28,7 +28,7 @@ export const getRecentArticle = (props: getRecentArticleProps):Promise<QueryData
             ],
         }
 
-    const dbId = process.env.NOTION_DB_ID as string
+    const dbId = process.env.NOTION_DB_ID as string;
     const data = notion.databases.query({
         database_id: dbId,
         page_size: 3,
