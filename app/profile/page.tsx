@@ -17,14 +17,14 @@ export default async function Profile() {
     return (
         <div>
             <PageTitle title="Profile"/>
-            <div className="flex justify-center gap-4">
+            <div className="md:w-3/4 mx-auto md:flex justify-center gap-4">
                 <Image
-                    className="object-cover w-120 h-80"
+                    className="object-cover w-3/4 md:flex-1 m-auto md:m-0 h-60 md:h-80"
                     src={profilePhoto}
                     alt="profile photo"
                     fill={false}
                 ></Image>
-                <div className="w-120 h-80">
+                <div className="w-3/4 mx-auto mb-5 md:flex-1">
                     {profileParagraph.map((value, index) => (<p key={value + String(index)}>{value}</p>))}
                 </div>
             </div>
