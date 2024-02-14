@@ -1,44 +1,47 @@
-import notion from "@/utils/notion";
+import { notion } from "@/utils/notion";
 import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
+import { cache } from "react";
 
 type getRecentArticleProps = {
-    category?: string
-}
+  category?: string;
+};
 
-export const getRecentArticle = (props: getRecentArticleProps):Promise<QueryDatabaseResponse> => {
-    const isDefault = typeof props.category != "string"
-    const defaultFilter = {
-        property: "IS_PUBLISHED",
-        checkbox: {
-            equals: true,
-        }
-    }
+export const getRecentArticle = cache(async (
+  props: getRecentArticleProps
+): Promise<QueryDatabaseResponse> => {
+  const isDefault = typeof props.category != "string";
+  const defaultFilter = {
+    property: "IS_PUBLISHED",
+    checkbox: {
+      equals: true,
+    },
+  };
 
-    const filter = isDefault
-        ? defaultFilter
-        : {
-            and: [
-                defaultFilter,
-                {
-                    property: "CATEGORY",
-                    select: {
-                        equals: props.category!
-                    }
-                }
-            ],
-        }
-
-    const dbId = process.env.NOTION_DB_ID as string;
-    const data = notion.databases.query({
-        database_id: dbId,
-        page_size: 3,
-        filter: filter,
-        sorts: [
-            {
-                property: "CREATED_AT",
-                direction: "descending"
-            }
+  const filter = isDefault
+    ? defaultFilter
+    : {
+        and: [
+          defaultFilter,
+          {
+            property: "CATEGORY",
+            select: {
+              equals: props.category!,
+            },
+          },
         ],
-    })
-    return data;
-}
+      };
+
+  const dbId = process.env.NOTION_DB_ID as string;
+  const data = await notion.databases.query({
+    database_id: dbId,
+    page_size: 3,
+    filter: filter,
+    sorts: [
+      {
+        property: "CREATED_AT",
+        direction: "descending",
+      },
+    ],
+  });
+  return data;
+});

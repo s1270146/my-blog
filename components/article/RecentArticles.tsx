@@ -15,14 +15,14 @@ const RecentArticles = async (props: RecentArticlesProps) => {
     }
     return (
         <div className="flex justify-center mb-4">
-            <div className="w-3/4 md:flex gap-4">
+            <div className="w-3/4 md:flex justify-start gap-4">
                 {
                     articles.length == 0
                     ? <ConstructText/>
                     :
                     articles.map(
                         (article, index) =>
-                            <div className="flex-1 min-w-[25%]" key={"article" + String(index)}>
+                            <div className="w-full md:w-[33%] min-w-[25%] border" key={"article" + String(index)}>
                                 <ArticleCard article={article} />
                             </div>
                     )

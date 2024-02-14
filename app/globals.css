@@ -25,3 +25,27 @@ body {
     )
     rgb(var(--background-start-rgb));
 } */
+
+.markdown h2 {
+  @apply text-2xl font-bold bg-mid-gray text-white mt-10 mb-4 p-2;
+}
+
+.markdown h3 {
+  @apply text-xl font-bold border-b-2 border-mid-gray mt-4 mb-2;
+}
+
+.markdown p {
+  @apply my-2;
+}
+
+.markdown ol {
+  @apply list-decimal ml-8
+}
+
+.agenda h2 {
+  @apply text-lg text-mid-gray ml-4 my-2;
+}
+
+.agenda h3 {
+  @apply text-base text-mid-gray ml-8 my-2;
+}

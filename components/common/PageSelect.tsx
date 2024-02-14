@@ -56,8 +56,8 @@ const PageSelect = ()=>{
                         </Link>
                     </li>
                     <li className={listClass} onClick={handleMenuOpen}>
-                        <Link href="/list/daily/1">
-                            Daily
+                        <Link href="/list/dialy/1">
+                            Dialy
                         </Link>
                     </li>
                     <li className={listClass} onClick={handleMenuOpen}>

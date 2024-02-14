@@ -3,6 +3,7 @@ import { NotionCheckbox } from "@/models/notion-type/notion-checkbox";
 import { NotionDate } from "@/models/notion-type/notion-date";
 import { NotionSelect } from "@/models/notion-type/notion-select";
 import { NotionMultiselect } from "@/models/notion-type/notion-multiselect";
+import { NotionRichtext } from "./notion-type/notion-richtext";
 
 
 type ArticleProperties = {
@@ -16,11 +17,17 @@ type ArticleProperties = {
         type: string,
         title: NotionText[]
     },
+    DESCRIPTION: NotionRichtext
 }
 
 type ArticleColumns = {
     id: string,
     properties: ArticleProperties,
+    cover?: {
+        external:{
+            url: string
+        }
+    }
 }
 
 export class Article {
@@ -31,6 +38,8 @@ export class Article {
     category: string;
     title: string;
     id: string;
+    imgUrl: string;
+    description: string;
 
     constructor(props: {
         isPublished: boolean,
@@ -40,14 +49,18 @@ export class Article {
         category: string,
         title: string,
         id: string,
+        imgUrl: string,
+        description: string
     }) {
         this.isPublished = props.isPublished;
-        this.updatedAt = props.category;
+        this.updatedAt = props.updatedAt;
         this.createdAt = props.createdAt;
         this.tag = props.tag;
         this.category = props.category;
         this.title = props.title;
         this.id = props.id;
+        this.imgUrl = props.imgUrl;
+        this.description = props.description;
     }
 
     static fromNotion(obj: Object): Article {
@@ -63,6 +76,8 @@ export class Article {
             category: data.properties.CATEGORY.select.name,
             title: data.properties.TITLE.title[0].plain_text,
             id: data.id,
+            imgUrl: typeof data.cover!=='undefined' ? data.cover?.external.url : '',
+            description: data.properties.DESCRIPTION.rich_text.map(value=>value.plain_text).join()
         });
     }
 }

@@ -7,7 +7,7 @@ const SubHeader = () => {
     const pageName: {[key: string]: string} = {
         Blog: "/list/blog/1",
         Work: "/list/work/1",
-        Daily: "/list/daily/1",
+        Dialy: "/list/dialy/1",
         Research: "/list/research/1",
         Profile: "/profile"
     };
