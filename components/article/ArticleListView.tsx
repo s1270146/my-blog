@@ -18,12 +18,18 @@ const ArticleListView = async (props: ArticleListViewProps) => {
     }
     const countPage = articles.length % 7 == 0 ? Math.floor(articles.length / 7) : Math.floor(articles.length / 7) + 1;
     const pageNationClass = countPage < 2 ? "hidden" : "";
+    const filteredArticles: Article[] = [];
+    for (let i = props.currentPage * 7 - 7; i < props.currentPage * 7; i++) {
+        const article = articles[i];
+        if(typeof article === "undefined")break;
+        filteredArticles.push(articles[i]);
+    }
     return (
         <div className="w-full mx-auto xl:px-10 mb-10">
             <PageTitle title={props.category.toUpperCase()}/>
             {
-                articles.length > 0 ?
-                articles.map((article, index) =>
+                filteredArticles.length > 0 ?
+                filteredArticles.map((article, index) =>
                     <div key={"article" + index}>
                         <ArticleListItem article={article}/>
                     </div>
