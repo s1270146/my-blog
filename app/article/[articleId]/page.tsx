@@ -16,6 +16,8 @@ import { Article } from "@/models/article";
 
 export const runtime = 'edge' // 'nodejs' (default) | 'edge'
 
+export const revalidate = parseInt(process.env.NEXT_PUBLIC_REVALIDATE_TIME ?? "0");
+
 type ArticlePageParams = {
     articleId: string
 }
@@ -34,12 +36,11 @@ export async function generateMetadata({
         {
             title: `${article.title}`,
             description: article.description,
-            keywords: article.tag
+            keywords: article.tag,
+            imagePath: article.imgUrl,
         }
     );
 }
-
-export const revalidate = 600; 
 
 const ArticlePage = async ({
     params

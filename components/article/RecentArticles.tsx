@@ -22,7 +22,7 @@ const RecentArticles = async (props: RecentArticlesProps) => {
                     :
                     articles.map(
                         (article, index) =>
-                            <div className="w-full md:w-[33%] min-w-[25%] border" key={"article" + String(index)}>
+                            <div className="w-full md:w-[33%] min-w-[25%]" key={"article" + String(index)}>
                                 <ArticleCard article={article} />
                             </div>
                     )

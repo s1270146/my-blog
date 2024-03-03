@@ -5,12 +5,12 @@ import { redirect } from "next/navigation";
 
 export const runtime = 'edge' // 'nodejs' (default) | 'edge'
 
+export const revalidate = parseInt(process.env.NEXT_PUBLIC_REVALIDATE_TIME ?? "0");
+
 type ArticleListPageParams = {
     articleId: string,
     pageId: string
 }
-
-export const revalidate = 600;
 
 export function generateMetadata({
     params

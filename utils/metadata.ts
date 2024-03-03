@@ -4,10 +4,12 @@ export const customMetadata = ({
   title,
   keywords,
   description,
+  imagePath,
 }: {
   title: string;
   keywords?: string[];
   description?: string;
+  imagePath?: string;
 }): Metadata => {
   const defaultKeywords: string[] = [
     "森航洋",
@@ -39,6 +41,7 @@ export const customMetadata = ({
     process.env.NEXT_PUBLIC_MY_TWITTER_ID ?? "myTwitterID";
   const searchConsoleID: string =
     process.env.NEXT_PUBLIC_SEARCH_CONSOLE_ID ?? "グーグルサーチコンソール";
+  const defaultImage: string = url + "/favicons/apple-touch-icon.png";
 
   return {
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
@@ -54,14 +57,18 @@ export const customMetadata = ({
       siteName: title,
       locale: "ja_JP",
       type: "website",
+      images: [{
+        url: typeof imagePath !== "undefined" ? imagePath : defaultImage,
+      }]
     },
     twitter: {
-      card: "summary_large_image",
+      card: "summary",
       title,
       description:
         typeof description !== "undefined" ? description : defaultDescription,
       site: siteTwitterID,
       creator: myTwitterID,
+      images: typeof imagePath !== "undefined" ? imagePath : defaultImage,
     },
     verification: {
       google: searchConsoleID,

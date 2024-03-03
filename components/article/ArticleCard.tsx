@@ -7,7 +7,7 @@ type ArticleCardProps = {
 
 const ArticleCard = (props: ArticleCardProps) => {
     return (
-        <div className="h-60 md:h-80 bg-light-gray relative md:mb-0 mb-4">
+        <div className="h-60 md:h-80 bg-light-gray relative md:mb-0 mb-4 border">
             <div className="w-full h-[7.5rem] md:h-40 bg-mid-gray">
                 {
                     typeof props.article.imgUrl !== "undefined"
