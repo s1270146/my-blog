@@ -7,6 +7,8 @@ import { getProfile } from "@/utils/get-profile";
 
 export const runtime = 'edge' // 'nodejs' (default) | 'edge'
 
+export const revalidate = parseInt(process.env.NEXT_PUBLIC_REVALIDATE_TIME ?? "0");
+
 export async function generateMetadata() {
     const profileDes = await getProfile({isSmall:false});
     return customMetadata({
