@@ -2,13 +2,14 @@ import ArticleListView from "@/components/article/ArticleListView";
 import ProfileWidget from "@/components/common/ProfileWidget";
 import { customMetadata } from "@/utils/metadata";
 import { redirect } from "next/navigation";
+import { CATEGORIES } from "@/constants/category";
 
 export const runtime = 'edge' // 'nodejs' (default) | 'edge'
 
 export const revalidate = parseInt(process.env.NEXT_PUBLIC_REVALIDATE_TIME ?? "0");
 
 type ArticleListPageParams = {
-    articleId: string,
+    category: string,
     pageId: string
 }
 
@@ -17,25 +18,19 @@ export function generateMetadata({
 }
     : {
         params: {
-            articleId: string
+            category: string
         }
     }) {
     return customMetadata(
         {
-            title: `MK:${params.articleId}`
+            title: `MK:${params.category}`
         }
     );
 }
 
 const ArticleListPage = ({ params }: { params: ArticleListPageParams }) => {
-    const articleIds = [
-        "blog",
-        "research",
-        "dialy",
-        "work"
-    ];
     const currentPage: number = parseInt(params.pageId, 10);
-    if (!(articleIds.some(value => value === params.articleId) || !Number.isInteger(currentPage))) {
+    if (!(CATEGORIES.some(value => value.name === params.category) || !Number.isInteger(currentPage))) {
         redirect("/")
     }
     return (
@@ -48,11 +43,11 @@ const ArticleListPage = ({ params }: { params: ArticleListPageParams }) => {
                     <p>
                         &#8811;
                     </p>
-                    <a href={`/list/${params.articleId}/1`}>
-                        {params.articleId}
+                    <a href={`/list/${params.category}/1`}>
+                        {params.category}
                     </a>
                 </div>
-                <ArticleListView category={params.articleId} currentPage={currentPage} />
+                <ArticleListView category={params.category} currentPage={currentPage} />
             </div>
             <div className="w-full py-10 xl:w-1/3">
                 <ProfileWidget />

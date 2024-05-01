@@ -2,6 +2,7 @@ import RecentArticles from "@/components/article/RecentArticles";
 import PageTitle from "@/components/page/PageTitle";
 import { customMetadata } from "@/utils/metadata";
 import { Metadata } from "next";
+import { CATEGORIES } from "@/constants/category";
 
 export const revalidate = parseInt(process.env.NEXT_PUBLIC_REVALIDATE_TIME ?? "0");
 
@@ -16,14 +17,12 @@ const Home = () => {
     <div className="overflow-y-hidden">
       <PageTitle title="最近の投稿"/>
       <RecentArticles/>
-      <PageTitle title="BLOG"/>
-      <RecentArticles category="blog"/>
-      <PageTitle title="WORK"/>
-      <RecentArticles category="work"/>
-      <PageTitle title="DIALY"/>
-      <RecentArticles category="dialy"/>
-      <PageTitle title="RESEARCH"/>
-      <RecentArticles category="research"/>
+      {
+        CATEGORIES.map((value)=> <div key={`recent article ${value.name}`}>
+          <PageTitle title={value.name.toUpperCase()}/>
+          <RecentArticles category={value.name}/>
+        </div>)
+      }
       <div className="h-10"></div>
     </div>
   )
