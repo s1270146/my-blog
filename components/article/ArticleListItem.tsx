@@ -1,5 +1,7 @@
 import { Article } from "@/models/article";
+import Image from "next/image";
 import Link from "next/link";
+import defaultPhoto from '@/public/default.png';
 
 type ArticleListItemProps = {
     article: Article
@@ -13,7 +15,7 @@ const ArticleListItem = (props: ArticleListItemProps) => {
                     {
                         typeof props.article.imgUrl !== "undefined"
                             ? <img className="w-full h-24 object-cover" src={props.article.imgUrl} alt=''></img>
-                            : <div className=""><p className="text-center">No Image</p></div>
+                            : <Image src={defaultPhoto} alt="default photo" className="w-full h-24 object-cover" />
                     }
                 </div>
                 <div className="w-2/3 bg-light-gray p-2">

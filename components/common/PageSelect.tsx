@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { jacquesFrancois } from "@/utils/font";
+import { CATEGORIES } from "@/constants/category";
 
 const PageSelect = ()=>{
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -45,26 +46,11 @@ const PageSelect = ()=>{
                             Home
                         </Link>
                     </li>
-                    <li className={listClass} onClick={handleMenuOpen}>
-                        <Link href="/list/blog/1">
-                            Blog
-                        </Link>
-                    </li>
-                    <li className={listClass} onClick={handleMenuOpen}>
-                        <Link href="/list/work/1">
-                            Work
-                        </Link>
-                    </li>
-                    <li className={listClass} onClick={handleMenuOpen}>
-                        <Link href="/list/dialy/1">
-                            Dialy
-                        </Link>
-                    </li>
-                    <li className={listClass} onClick={handleMenuOpen}>
-                        <Link href="/list/research/1">
-                            Research
-                        </Link>
-                    </li>
+                    {
+                        CATEGORIES.map((category)=> <li className={listClass} key={`page select ${category.name}`}>
+                            <Link href={category.path} onClick={handleMenuOpen}>{category.pascalName}</Link>
+                        </li>)
+                    }
                     <li className={listClass} onClick={handleMenuOpen}>
                         <Link href="/profile">
                             Profile

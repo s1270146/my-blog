@@ -13,10 +13,14 @@ import ProfileWidget from "@/components/common/ProfileWidget";
 import { customMetadata } from "@/utils/metadata";
 import { notion } from "@/utils/notion";
 import { Article } from "@/models/article";
+import Breadcrumb from "@/components/common/Breadcrumb";
+import Image from "next/image";
+import defaultPhoto from '@/public/default.png';
+import rehypeKatex from 'rehype-katex'
+import remarkMath from 'remark-math'
+import 'katex/dist/katex.min.css'// <-これをimportしないと数式がなぜか2つ表示される
 
 export const runtime = 'edge' // 'nodejs' (default) | 'edge'
-
-export const revalidate = parseInt(process.env.NEXT_PUBLIC_REVALIDATE_TIME ?? "0");
 
 type ArticlePageParams = {
     articleId: string
@@ -52,24 +56,19 @@ const ArticlePage = async ({
     return (
         <div>
             <div className="w-3/4 mx-auto xl:flex justify-between">
-                <div className="mb-10 w-full xl:w-2/3">
-                    <div className="flex justify-start gap-4 my-4">
-                        <a href="/">
-                            home
-                        </a>
-                        <p>
-                            &#8811;
-                        </p>
-                        <a href={`/list/${data.article.category}/1`}>
-                            {data.article.category}
-                        </a>
-                        <p>
-                            &#8811;
-                        </p>
-                        <a href={`/article/${params.articleId}`} className="text-ellipsis whitespace-nowrap overflow-hidden">
-                            {data.article.title}
-                        </a>
-                    </div>
+                <div className="mb-10 w-full xl:w-2/3 p-4 bg-light-gray mt-2">
+                    <Breadcrumb
+                        paths={[
+                            {
+                                path: `/list/${data.article.category}/1`,
+                                name: data.article.category
+                            },
+                            {
+                                path: `/article/${params.articleId}`,
+                                name: data.article.title
+                            }
+                        ]}
+                    />
                     <h1 className="text-3xl mt-4 mb-2">{data.article.title}</h1>
                     <div className="flex justify-between">
                         <p>{`作成日:${data.article.createdAt}`}</p>
@@ -78,7 +77,7 @@ const ArticlePage = async ({
                     {
                         typeof data.article.imgUrl !== 'undefined'
                             ? <img src={data.article.imgUrl} alt="main image" className="object-cover h-40 md:h-80 w-full" />
-                            : null
+                            : <Image src={defaultPhoto} alt="default photo" className="object-cover h-40 md:h-80 w-full" />
                     }
                     <div className="w-full md:w-1/2 mx-auto bg-light-gray border-2 border-mid-gray my-4">
                         <p className="text-center bg-mid-gray text-white text-xl py-2">
@@ -110,7 +109,7 @@ const ArticlePage = async ({
                         </ReactMarkdown>
 
                     </div>
-                    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} className='markdown' components={
+                    <ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeRaw, rehypeKatex]} className='markdown' components={
                         {
                             h2: H2,
                             h3: H3,
