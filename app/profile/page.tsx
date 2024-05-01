@@ -1,13 +1,14 @@
 import Image from "next/image";
-import profilePhoto from '@/public/profile/profile.jpeg'
+import profilePhoto from '@/public/profile/profile3.jpeg'
 import PageTitle from "@/components/page/PageTitle";
 import ProfileParagraph from "@/components/common/ProfileParagraph";
 import { customMetadata } from "@/utils/metadata";
 import { getProfile } from "@/utils/get-profile";
+import Breadcrumb from "@/components/common/Breadcrumb";
 
 export const runtime = 'edge' // 'nodejs' (default) | 'edge'
 
-export const revalidate = parseInt(process.env.NEXT_PUBLIC_REVALIDATE_TIME ?? "0");
+// export const revalidate = parseInt(process.env.NEXT_PUBLIC_REVALIDATE_TIME ?? "0");
 
 export async function generateMetadata() {
     const profileDes = await getProfile({isSmall:false});
@@ -21,6 +22,16 @@ export async function generateMetadata() {
 export default function Profile() {
     return (
         <div>
+            <div className="w-3/4 mx-auto">
+                <Breadcrumb
+                    paths={[
+                        {
+                            path: '/profile',
+                            name: 'profile'
+                        }
+                    ]}
+                />
+            </div>
             <PageTitle title="Profile" />
             <div className="md:w-3/4 mx-auto md:flex justify-center gap-4">
                 <Image

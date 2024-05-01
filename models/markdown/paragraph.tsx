@@ -5,6 +5,5 @@ export const P = ({
     node,
     children
 }:ClassAttributes<HTMLParagraphElement> & HTMLAttributes<HTMLParagraphElement> & ExtraProps) => {
-    console.log(node);
     return <>{children}</>;
 }
