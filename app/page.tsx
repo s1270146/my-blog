@@ -4,7 +4,7 @@ import { customMetadata } from "@/utils/metadata";
 import { Metadata } from "next";
 import { CATEGORIES } from "@/constants/category";
 
-export const revalidate = parseInt(process.env.NEXT_PUBLIC_REVALIDATE_TIME ?? "0");
+// export const revalidate = parseInt(process.env.NEXT_PUBLIC_REVALIDATE_TIME ?? "0");
 
 export const runtime = 'edge' // 'nodejs' (default) | 'edge'
 

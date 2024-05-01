@@ -8,6 +8,5 @@ export const Li = ({
     if(typeof node!=="undefined" && ("className" in node.properties)){
         return <div>{children}</div>;
     }
-    console.log(node);
-    return <li className="list-disc">test</li>;;
+    return <li className="list-disc">test</li>;
 }
