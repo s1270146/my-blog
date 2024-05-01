@@ -3,10 +3,11 @@ import ProfileWidget from "@/components/common/ProfileWidget";
 import { customMetadata } from "@/utils/metadata";
 import { redirect } from "next/navigation";
 import { CATEGORIES } from "@/constants/category";
+import Breadcrumb from "@/components/common/Breadcrumb";
 
 export const runtime = 'edge' // 'nodejs' (default) | 'edge'
 
-export const revalidate = parseInt(process.env.NEXT_PUBLIC_REVALIDATE_TIME ?? "0");
+// export const revalidate = parseInt(process.env.NEXT_PUBLIC_REVALIDATE_TIME ?? "0");
 
 type ArticleListPageParams = {
     category: string,
@@ -23,7 +24,7 @@ export function generateMetadata({
     }) {
     return customMetadata(
         {
-            title: `MK:${params.category}`
+            title: `MK:${params.category.toUpperCase()}`
         }
     );
 }
@@ -36,17 +37,14 @@ const ArticleListPage = ({ params }: { params: ArticleListPageParams }) => {
     return (
         <div className="w-3/4 mx-auto xl:flex justify-between">
             <div className="xl:w-2/3">
-                <div className="flex justify-start gap-4 mt-4">
-                    <a href="/">
-                        home
-                    </a>
-                    <p>
-                        &#8811;
-                    </p>
-                    <a href={`/list/${params.category}/1`}>
-                        {params.category}
-                    </a>
-                </div>
+                <Breadcrumb
+                    paths={[
+                        {
+                            path: `/list/${params.category}/1`,
+                            name: params.category
+                        }
+                    ]}
+                />
                 <ArticleListView category={params.category} currentPage={currentPage} />
             </div>
             <div className="w-full py-10 xl:w-1/3">
