@@ -52,7 +52,7 @@ const ArticlePage = async ({
     return (
         <div>
             <div className="w-3/4 mx-auto xl:flex justify-between">
-                <div className="mb-10 w-full xl:w-2/3">
+                <div className="mb-10 w-full xl:w-2/3 p-4 bg-light-gray mt-2">
                     <div className="flex justify-start gap-4 my-4">
                         <a href="/">
                             home
