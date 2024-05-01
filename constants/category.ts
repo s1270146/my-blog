@@ -8,6 +8,11 @@ type Category = {
 
 export const CATEGORIES:Category[] = [
     {
+        name: "tips",
+        path: "/list/tips/1",
+        pascalName: "Tips"
+    },
+    {
         name: "blog",
         path: "/list/blog/1",
         pascalName: "Blog"
@@ -17,19 +22,19 @@ export const CATEGORIES:Category[] = [
         path: "/list/work/1",
         pascalName: "Work"
     },
-    {
-        name: "dialy",
-        path: "/list/dialy/1",
-        pascalName: "Dialy"
-    },
     // {
-    //     name: "tips",
-    //     path: "/list/tips/1",
-    //     pascalName: "Tips"
+    //     name: "dialy",
+    //     path: "/list/dialy/1",
+    //     pascalName: "Dialy"
+    // },
+    // {
+    //     name: "research",
+    //     path: "/list/research/1",
+    //     pascalName: "Research"
     // },
     {
-        name: "research",
-        path: "/list/research/1",
-        pascalName: "Research"
+        name: "math",
+        path: "/list/math/1",
+        pascalName: "Math"
     }
 ];

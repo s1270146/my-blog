@@ -29,13 +29,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: url + "/list/dialy/1",
+      url: url + "/list/tips/1",
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.6,
     },
     {
-      url: url + "/list/research/1",
+      url: url + "/list/math/1",
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.5,
