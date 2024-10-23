@@ -55,7 +55,7 @@ const ArticlePage = async ({
     const data = await getArticleContent({ articleId: params.articleId });
     return (
         <div>
-            <div className="w-3/4 mx-auto xl:flex justify-between">
+            <div className="sm:w-3/4 w-11/12 mx-auto xl:flex justify-between">
                 <div className="mb-10 w-full xl:w-2/3 p-4 bg-light-gray mt-2">
                     <Breadcrumb
                         paths={[
@@ -69,7 +69,7 @@ const ArticlePage = async ({
                             }
                         ]}
                     />
-                    <h1 className="text-3xl mt-4 mb-2">{data.article.title}</h1>
+                    <h1 className="sm:text-3xl text-xl mt-4 mb-2">{data.article.title}</h1>
                     <div className="flex justify-between">
                         <p>{`作成日:${data.article.createdAt}`}</p>
                         <p>{data.article.updatedAt != '' ? `更新日:${data.article.updatedAt}` : ''}</p>
@@ -80,7 +80,7 @@ const ArticlePage = async ({
                             : <Image src={defaultPhoto} alt="default photo" className="object-cover h-40 md:h-80 w-full" />
                     }
                     <div className="w-full md:w-1/2 mx-auto bg-light-gray border-2 border-mid-gray my-4">
-                        <p className="text-center bg-mid-gray text-white text-xl py-2">
+                        <p className="text-center bg-mid-gray text-white sm:text-xl text-md py-2">
                             目次
                         </p>
                         <ReactMarkdown
