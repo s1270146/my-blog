@@ -7,7 +7,7 @@ type PageTitleProps = {
 const PageTitle = (props: PageTitleProps) => {
     return (
         <div className="flex justify-center">
-            <div className="pt-6 pb-2 w-3/4">
+            <div className="pt-6 pb-2 sm:w-3/4 w-11/12">
                 <h1 className={jacquesFrancois.className + " inline-block md:text-4xl text-xl tracking-[0.4rem] md:tracking-[1em] border-b-4 border-mid-gray pb-2 my-2"}>{props.title}</h1>
             </div>
         </div>

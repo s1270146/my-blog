@@ -23,7 +23,7 @@ const SubHeader = () => {
                     </div>
                 </Link>
             </div>
-            <div className="md:hidden w-3/4">
+            <div className="md:hidden sm:w-3/4 w-11/12">
                 <PageSelect/>
             </div>
         </div>

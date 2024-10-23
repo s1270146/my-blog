@@ -22,7 +22,7 @@ export async function generateMetadata() {
 export default function Profile() {
     return (
         <div>
-            <div className="w-3/4 mx-auto">
+            <div className="sm:w-3/4 w-11/12 mx-auto">
                 <Breadcrumb
                     paths={[
                         {
@@ -35,12 +35,12 @@ export default function Profile() {
             <PageTitle title="Profile" />
             <div className="md:w-3/4 mx-auto md:flex justify-center gap-4">
                 <Image
-                    className="object-cover w-3/4 md:flex-1 m-auto md:m-0 h-60 md:h-80"
+                    className="object-cover sm:w-3/4 w-11/12 md:flex-1 m-auto md:m-0 h-60 md:h-80"
                     src={profilePhoto}
                     alt="profile photo"
                     fill={false}
                 ></Image>
-                <div className="w-3/4 mx-auto mb-5 md:flex-1">
+                <div className="sm:w-3/4 w-11/12 mx-auto mb-5 md:flex-1">
                     <ProfileParagraph isSmall={false} />
                 </div>
             </div>

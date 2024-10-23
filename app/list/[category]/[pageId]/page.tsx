@@ -35,7 +35,7 @@ const ArticleListPage = ({ params }: { params: ArticleListPageParams }) => {
         redirect("/")
     }
     return (
-        <div className="w-3/4 mx-auto xl:flex justify-between">
+        <div className="sm:w-3/4 w-11/12 mx-auto xl:flex justify-between">
             <div className="xl:w-2/3">
                 <Breadcrumb
                     paths={[
