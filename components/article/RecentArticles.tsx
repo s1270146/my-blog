@@ -15,7 +15,7 @@ const RecentArticles = async (props: RecentArticlesProps) => {
     }
     return (
         <div className="flex justify-center mb-4">
-            <div className="w-3/4 md:flex justify-start gap-4">
+            <div className="sm:w-3/4 w-11/12 md:flex justify-start gap-4">
                 {
                     articles.length == 0
                     ? <ConstructText/>

@@ -6,7 +6,7 @@ const ProfileParagraph = async ({
     isSmall: boolean
 }) => {
     const profileParagraph = await getProfile({isSmall: isSmall});
-    return profileParagraph.map((value, index) => (<p key={value + String(index)}>{value}</p>))
+    return profileParagraph.map((value, index) => (<p className="max-sm:text-xs" key={value + String(index)}>{value}</p>))
 }
 
 export default ProfileParagraph;
