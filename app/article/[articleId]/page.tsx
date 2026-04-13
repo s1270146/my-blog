@@ -20,7 +20,7 @@ import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
 import 'katex/dist/katex.min.css'// <-これをimportしないと数式がなぜか2つ表示される
 
-export const runtime = 'edge' // 'nodejs' (default) | 'edge'
+export const runtime = 'nodejs'
 
 type ArticlePageParams = {
     articleId: string
@@ -30,11 +30,10 @@ export async function generateMetadata({
     params
 }
     : {
-        params: {
-            articleId: string
-        }
+        params: Promise<ArticlePageParams>
     }) {
-    const pageRes = await notion.pages.retrieve({ page_id: params.articleId });
+    const { articleId } = await params;
+    const pageRes = await notion.pages.retrieve({ page_id: articleId });
     const article = Article.fromNotion(pageRes);
     return customMetadata(
         {
@@ -49,10 +48,11 @@ export async function generateMetadata({
 const ArticlePage = async ({
     params
 }: {
-    params: ArticlePageParams,
+    params: Promise<ArticlePageParams>,
 }
 ) => {
-    const data = await getArticleContent({ articleId: params.articleId });
+    const { articleId } = await params;
+    const data = await getArticleContent({ articleId });
     return (
         <div>
             <div className="sm:w-3/4 w-11/12 mx-auto xl:flex justify-between">
@@ -64,7 +64,7 @@ const ArticlePage = async ({
                                 name: data.article.category
                             },
                             {
-                                path: `/article/${params.articleId}`,
+                                path: `/article/${articleId}`,
                                 name: data.article.title
                             }
                         ]}
