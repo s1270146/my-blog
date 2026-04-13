@@ -3,16 +3,16 @@
 Next.js 16 で構成された個人ブログです。記事データは Notion をデータソースとして取得し、App Router で配信します。
 
 公開サイト:
-https://mk-record.com/
+<https://mk-record.com/>
 
 ## Tech Stack
 
 - Next.js 16
 - React 19
 - TypeScript 5
-- Tailwind CSS 3
+- Tailwind CSS 4
 - Notion API
-- Cloudflare Hosting
+- Cloudflare Pages
 
 ## Requirements
 
@@ -104,8 +104,62 @@ npm run start
 - `constants/`: 定数定義
 - `public/`: 静的アセット
 
+## Deployment
+
+現在の本番デプロイ先は Cloudflare Pages です。
+
+Cloudflare Pages 側では Edge Runtime 前提の制約があるため、このリポジトリには Pages 向けの調整が入っています。
+
+- 非 static route は `edge` runtime 前提
+- favicon 系ファイルは `public/` 配置
+- 記事ページの Markdown 表示は Pages 制約を優先した簡易レンダリング
+
+## Git Workflow
+
+### 基本方針
+
+- `main`: 本番に出すブランチ
+- `for-cloudflare-pages`: Cloudflare Pages 向けの調整を含む作業ブランチ
+- `platform-neutral-base`: Pages 向けの妥協を入れる前の保存ブランチ
+
+### 今回の考え方
+
+`for-cloudflare-pages` には Cloudflare Pages 用の制約対応が入っています。
+将来、Cloudflare Workers や別ホスティングへ切り替える場合は、`main` や `for-cloudflare-pages` をそのまま起点にせず、Pages 対応前の地点から再開した方がきれいです。
+
+### 推奨手順
+
+1. `for-cloudflare-pages` を `main` にマージする
+2. Pages 対応前のコミットに保存用ブランチを切る
+3. 将来別デプロイ手段を試す時は、その保存用ブランチから新ブランチを切る
+
+例:
+
+```bash
+git log --oneline --decorate
+git branch platform-neutral-base <pages対応前のコミットSHA>
+git tag next16-tailwind4-base <pages対応前のコミットSHA>
+```
+
+将来 Workers 向けに再開する場合:
+
+```bash
+git switch platform-neutral-base
+git switch -c feature/workers-migration
+```
+
+### main に入れる時の注意
+
+将来別ブランチを `main` に反映する時は、Pages 対応ブランチをそのまま上書きするのではなく、必要な差分だけを再統合する方が安全です。
+
+よく使う方法:
+
+- `main` から新しい統合ブランチを切る
+- 必要なコミットだけ `cherry-pick` する
+- もしくは対象ブランチを最新 `main` へ追従させてから調整する
+
 ## Notes
 
-- 記事ページ `/article/[articleId]` は依存ライブラリとの相性のため `nodejs` runtime を使用しています
 - `next lint` は Next.js 16 で削除されているため、lint は ESLint CLI を使います
 - `next build` 時に環境変数が不足していると、Notion データ取得系ページの生成で失敗する可能性があります
+- Cloudflare Pages 制約のため、記事ページ `/article/[articleId]` は簡易 Markdown レンダラを使っています
