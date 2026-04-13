@@ -1,26 +1,16 @@
 import { getArticleContent } from "@/utils/get-article-content";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
-import { Code } from "@/models/markdown/code";
-import { H2 } from "@/models/markdown/heading2";
-import { H3 } from "@/models/markdown/heading3";
-import { Ul } from "@/models/markdown/unordered-list";
-import { A } from "@/models/markdown/anchor";
 import PageTitle from "@/components/page/PageTitle";
 import RecentArticles from "@/components/article/RecentArticles";
 import ProfileWidget from "@/components/common/ProfileWidget";
+import { SimpleMarkdown, SimpleMarkdownToc } from "@/components/article/SimpleMarkdown";
 import { customMetadata } from "@/utils/metadata";
 import { notion } from "@/utils/notion";
 import { Article } from "@/models/article";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import Image from "next/image";
 import defaultPhoto from '@/public/default.png';
-import rehypeKatex from 'rehype-katex'
-import remarkMath from 'remark-math'
-import 'katex/dist/katex.min.css'// <-これをimportしないと数式がなぜか2つ表示される
 
-export const runtime = 'nodejs'
+export const runtime = 'edge'
 
 type ArticlePageParams = {
     articleId: string
@@ -83,43 +73,9 @@ const ArticlePage = async ({
                         <p className="text-center bg-mid-gray text-white sm:text-xl text-md py-2">
                             目次
                         </p>
-                        <ReactMarkdown
-                            allowedElements={["h2", "h3"]}
-                            className='agenda'
-                            components={{
-                                h2: ({ node }) => {
-                                    const text = typeof node !== "undefined" && node.children.length > 0 && "value" in node.children[0]
-                                        ? node?.children[0]["value"]
-                                        : "";
-                                    return <h2>
-                                        <a href={`#${text}`}>{`・${text}`}</a>
-                                    </h2>
-                                },
-                                h3: ({ node }) => {
-                                    const text = typeof node !== "undefined" && node.children.length > 0 && "value" in node.children[0]
-                                        ? node?.children[0]["value"]
-                                        : "";
-                                    return <h3>
-                                        <a href={`#${text}`}>{`・${text}`}</a>
-                                    </h3>
-                                },
-                            }}
-                        >
-                            {data.body}
-                        </ReactMarkdown>
-
+                        <SimpleMarkdownToc markdown={data.body} />
                     </div>
-                    <ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeRaw, rehypeKatex]} className='markdown' components={
-                        {
-                            h2: H2,
-                            h3: H3,
-                            ul: Ul,
-                            code: Code,
-                            a: A
-                        }
-                    }>
-                        {data.body}
-                    </ReactMarkdown>
+                    <SimpleMarkdown markdown={data.body} />
                 </div>
                 <div className="w-full py-10 xl:pl-10 xl:w-1/3">
                     <ProfileWidget />

@@ -1,26 +1,27 @@
 import { ClassAttributes, HTMLAttributes } from "react";
 import { ExtraProps } from "react-markdown";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 export const Code = ({
-    node,
     children,
     className,
     ...rest
 }: ClassAttributes<HTMLElement> & HTMLAttributes<HTMLElement> & ExtraProps) => {
-    const match = /language-(\w+)/.exec(className || '')
-    return match ? (
-        <SyntaxHighlighter
-            PreTag="div"
-            language={match[1]}
-            style={dark}
-        >
-            {String(children).replace(/\n$/, '')}
-        </SyntaxHighlighter>
-    ) : (
+    const match = /language-(\w+)/.exec(className || "");
+    const code = String(children).replace(/\n$/, "");
+
+    if (match) {
+        return (
+            <pre className="my-4 overflow-x-auto rounded bg-mid-gray p-4 text-sm text-white">
+                <code {...rest} className={className}>
+                    {code}
+                </code>
+            </pre>
+        );
+    }
+
+    return (
         <code {...rest} className={className}>
             {children}
         </code>
-    )
+    );
 }
