@@ -18,20 +18,22 @@ export function generateMetadata({
     params
 }
     : {
-        params: {
-            category: string
-        }
+        params: Promise<Pick<ArticleListPageParams, "category">>
     }) {
-    return customMetadata(
+    return params.then(({ category }) => customMetadata(
         {
-            title: `MK:${params.category.toUpperCase()}`
+            title: `MK:${category.toUpperCase()}`
         }
-    );
+    ));
 }
 
-const ArticleListPage = ({ params }: { params: ArticleListPageParams }) => {
-    const currentPage: number = parseInt(params.pageId, 10);
-    if (!(CATEGORIES.some(value => value.name === params.category) || !Number.isInteger(currentPage))) {
+const ArticleListPage = async ({ params }: { params: Promise<ArticleListPageParams> }) => {
+    const { category, pageId } = await params;
+    const currentPage: number = parseInt(pageId, 10);
+    const isValidCategory = CATEGORIES.some(value => value.name === category);
+    const isValidPage = Number.isInteger(currentPage) && currentPage > 0;
+
+    if (!isValidCategory || !isValidPage) {
         redirect("/")
     }
     return (
@@ -40,12 +42,12 @@ const ArticleListPage = ({ params }: { params: ArticleListPageParams }) => {
                 <Breadcrumb
                     paths={[
                         {
-                            path: `/list/${params.category}/1`,
-                            name: params.category
+                            path: `/list/${category}/1`,
+                            name: category
                         }
                     ]}
                 />
-                <ArticleListView category={params.category} currentPage={currentPage} />
+                <ArticleListView category={category} currentPage={currentPage} />
             </div>
             <div className="w-full py-10 xl:w-1/3">
                 <ProfileWidget />

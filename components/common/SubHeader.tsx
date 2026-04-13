@@ -10,7 +10,7 @@ const SubHeader = () => {
             <div className="hidden md:flex md:w-3/4 justify-end items-center gap-4">
                 {
                     CATEGORIES.map(value=>
-                        <Link key={"page"+value} href={value.path}>
+                        <Link key={`page-${value.name}`} href={value.path}>
                             <div className={textButtonClassName}>
                                 {value.pascalName}
                             </div>

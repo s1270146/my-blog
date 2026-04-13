@@ -32,9 +32,4 @@ export const CATEGORIES:Category[] = [
     //     path: "/list/research/1",
     //     pascalName: "Research"
     // },
-    {
-        name: "math",
-        path: "/list/math/1",
-        pascalName: "Math"
-    }
 ];
